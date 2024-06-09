@@ -1,5 +1,6 @@
 package org.example.dao;
 
+import org.example.dto.JobsDto;
 import org.example.dto.JobsFileDto;
 import org.example.models.Jobs;
 
@@ -12,7 +13,7 @@ public class JobsDAO {
     private static final String SELECT_ONE_JOBS = "select * from jobs where job_id = ?";
     private static final String SELECT_MIN_SALARY_JOBS = "select * from jobs where min_salary = ?";
     private static final String SELECT_MIN_SALARY_SORT_BY_JOBS = "select * from jobs order by limit =? ,offset = ? where min_salary = ?";
-    private static final String INSERT_JOBS = "insert into jobs values (?, ?, ?,?)";
+    private static final String INSERT_JOBS = "insert into jobs values (?, ?, ?, ?)";
     private static final String UPDATE_JOBS = "update departments set job_titel = ?, min Salary = ?,max Salary=? where job_id = ?";
     private static final String DELETE_JOBS = "delete from jobs where job_id = ?";
 
@@ -21,11 +22,14 @@ public class JobsDAO {
         Class.forName("org.sqlite.JDBC");
         Connection conn = DriverManager.getConnection(URL);
         PreparedStatement st = conn.prepareStatement(INSERT_JOBS);
+
         st.setInt(1, j.getJob_id());
         st.setString(2, j.getJobs_Title());
         st.setDouble(3,j.getMin_sal());
-        st.setDouble(3,j.getMax_sal());
-        st.executeUpdate();
+        st.setDouble(4,j.getMax_sal());
+        int rows = st.executeUpdate();
+//        System.out.println(j);
+        System.out.println("rows inserted: " + rows);
     }
 
     public void updateJobs(Jobs j) throws SQLException, ClassNotFoundException {

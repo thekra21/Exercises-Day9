@@ -1,10 +1,14 @@
 package org.example.dto;
 
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
+@XmlRootElement
 public class JobsDto {
  private String Jobs_Title;
  private int Job_id;
@@ -30,7 +34,8 @@ public class JobsDto {
 
     }
 
-
+    @XmlElementWrapper
+    @XmlElement(name = "link")
     public ArrayList<LinkDto> getLinks() {
         return links;
     }

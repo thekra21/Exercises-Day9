@@ -6,6 +6,7 @@ import jakarta.ws.rs.*;
 import org.example.dto.JobsDto;
 import org.example.dto.JobsFileDto;
 import org.example.exceptions.DataNotFoundException;
+import org.example.mappers.JobsMapper;
 import org.example.models.Jobs;
 
 import java.net.URI;
@@ -61,11 +62,8 @@ public class JobsController {
                 throw new DataNotFoundException("Jobs " + jobId + "Not found");
             }
 
-            JobsDto dto = new JobsDto();
-          dto.setJob_id(jobs.getJob_id());
-          dto.setJobs_Title(jobs.getJobs_Title());
-            dto.setMax_sal(jobs.getMax_sal());
-            dto.setMin_sal(jobs.getMin_sal());
+            JobsDto dto =  JobsMapper.INSTANCE.tojobsdto(jobs);
+
 
 
             AddLink(dto);
@@ -95,11 +93,14 @@ public class JobsController {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_XML)
-    public Response insertJob(Jobs job) {
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response insertJobs(JobsDto dto) {
 
         try {
+            Jobs job = JobsMapper.INSTANCE.toModel(dto);
+//            System.out.println(job);
             dao.insertJobs(job);
+//            System.out.println(job);
             NewCookie cookie = (new NewCookie.Builder("username")).value("OOOOO").build();
             URI uri = uriInfo.getAbsolutePathBuilder().path(job.getJob_id() + "").build();
             return Response.status(Response.Status.CREATED)
