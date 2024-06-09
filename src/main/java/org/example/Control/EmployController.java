@@ -4,11 +4,14 @@ import jakarta.ws.rs.core.*;
 import org.example.dao.EmploysDAO;
 
 import jakarta.ws.rs.*;
+import org.example.dao.JobsDAO;
 import org.example.dto.EmployeesDto;
 import org.example.dto.EmployeesFileDto;
 import org.example.dto.JobsDto;
 import org.example.dto.JobsFileDto;
 import org.example.exceptions.DataNotFoundException;
+import org.example.mappers.EmployeesMapper;
+import org.example.mappers.JobsMapper;
 import org.example.models.Employs;
 import org.example.models.Jobs;
 
@@ -21,8 +24,9 @@ public class EmployController {
 
     @Context UriInfo uriInfo;
     @Context HttpHeaders headers;
-
+    JobsDAO jao =new JobsDAO();
     EmploysDAO dao = new EmploysDAO();
+
 
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, "text/csv"})
@@ -50,7 +54,7 @@ public class EmployController {
     }
 
     @GET
-    @Path("{employId}")
+    @Path("/{employId}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, "text/csv"})
     public Response getEmploy(@PathParam("employId") int employId)throws SQLException {
 
@@ -59,22 +63,13 @@ public class EmployController {
             if (emp == null) {
                 throw new DataNotFoundException("employees " + employId + "Not found");
             }
-            EmployeesDto dto = new EmployeesDto();
+            Jobs j = JobsDAO.selectJobs(emp.getJob_id());
 
-            dto.setEmployee_id(emp.getEmployee_id());
-            dto.setFirst_name(emp.getFirst_name());
-            dto.setLast_name(emp.getLast_name());
-            dto.setEmail(emp.getEmail());
-            dto.setPhone_number(emp.getPhone_number());
-            dto.setHire_date(emp.getHire_date());
-            dto.setJob_id(emp.getJob_id());
-            dto.setSalary(emp.getSalary());
-            dto.setManager_id(emp.getManger_id());
-            dto.setDepartment_id(emp.getDepartment_id());
-
+            EmployeesDto dto =  EmployeesMapper.INSTANCE.toEmployeesDto(emp,j);
+            AddLink(dto);
 
             return Response.ok(dto).build();
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
 
@@ -130,10 +125,6 @@ public class EmployController {
         }
     }
 
-    @Path("{employee_id}/jobs")
-    public JobsIdController getEmployeeController() {
-        return new JobsIdController();
-    }
 
 
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 @XmlRootElement
 public class JobsDto {
- private String Jobs_Title;
+ private String jobs_title;
  private int Job_id;
  private double min_sal;
  private double max_sal;
@@ -20,15 +20,15 @@ public class JobsDto {
     public JobsDto() {
     }
 
-    public JobsDto(String jobs_Title, int job_id, double min_sal, double max_sal) {
-        Jobs_Title = jobs_Title;
+    public JobsDto(String jobs_title, int job_id, double min_sal, double max_sal) {
+        jobs_title = jobs_title;
         Job_id = job_id;
         this.min_sal = min_sal;
         this.max_sal = max_sal;
     }
     public JobsDto(ResultSet rs) throws SQLException {
-        Jobs_Title = rs.getString("Job_Title");
-        Job_id = rs.getInt("Job_id");
+        jobs_title = rs.getString("job_title");
+        Job_id = rs.getInt("job_id");
         min_sal = rs.getDouble("min_salary");
         max_sal = rs.getDouble("max_salary");
 
@@ -49,7 +49,7 @@ public class JobsDto {
     @Override
     public String toString() {
         return "Jobs{" +
-                "Jobs_Title='" + Jobs_Title + '\'' +
+                "Jobs_Title='" + jobs_title + '\'' +
                 ", Job_id=" + Job_id +
                 ", min_sal=" + min_sal +
                 ", max_sal=" + max_sal +
@@ -57,11 +57,11 @@ public class JobsDto {
     }
 
     public String getJobs_Title() {
-        return Jobs_Title;
+        return jobs_title;
     }
 
     public void setJobs_Title(String jobs_Title) {
-        Jobs_Title = jobs_Title;
+        jobs_title = jobs_title;
     }
 
     public double getMin_sal() {

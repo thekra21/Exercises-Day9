@@ -1,6 +1,7 @@
 package org.example.models;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 public class Employs {
@@ -16,6 +17,8 @@ private double salary;
 private int manager_id;
 private int department_id;
 
+private Jobs jobs;
+
     public Employs(int employee_id, String first_name, String last_name, String email, String phone_number, String hire_date, int job_id, double salary, int manager_id, int department_id) {
         this.employee_id = employee_id;
         this.first_name = first_name;
@@ -29,22 +32,28 @@ private int department_id;
         this.department_id = department_id;
     }
 
+    public Employs() {
+    }
+
     public Employs(ResultSet rs) throws SQLException {
 
         employee_id = rs.getInt("employee_id");
-        first_name= rs.getString("first_name");
-        last_name=rs.getString("last_name");
-        email=rs.getString("email");
-        phone_number=rs.getString("phone_number");
-        hire_date=rs.getString("hire_date");
-        job_id=rs.getInt("job_id");
-        salary=rs.getDouble("salary");
-        manager_id=rs.getInt("manager_id");
-        department_id=rs.getInt("department_id");
+        first_name = rs.getString("first_name");
+        last_name = rs.getString("last_name");
+        email = rs.getString("email");
+        phone_number = rs.getString("phone_number");
+        hire_date = rs.getString("hire_date");
+        job_id = rs.getInt("job_id");
+        salary = rs.getDouble("salary");
+        manager_id = rs.getInt("manager_id");
+        department_id = rs.getInt("department_id");
 
+        ResultSetMetaData mt = rs.getMetaData();
+        if (mt.getColumnCount() > 3) {
+            jobs = new Jobs(rs);
 
+        }
     }
-
 
     @Override
     public String toString() {
@@ -142,3 +151,4 @@ private int department_id;
         this.department_id = department_id;
     }
 }
+

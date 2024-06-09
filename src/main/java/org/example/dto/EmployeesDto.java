@@ -20,6 +20,7 @@ public class EmployeesDto {
     private double salary;
     private int manager_id;
     private int department_id;
+    private JobsDto jobs;
 
 
     private ArrayList<LinkDto> links = new ArrayList<>();
@@ -27,6 +28,8 @@ public class EmployeesDto {
 
     public EmployeesDto() {
     }
+
+
 
     public EmployeesDto(int employee_id, String first_name, String last_name, String email, String phone_number, String hire_date, int job_id, double salary, int manager_id, int department_id) {
         this.employee_id = employee_id;
@@ -83,7 +86,13 @@ public class EmployeesDto {
         links.add(link);
     }
 
+    public JobsDto getJobs() {
+        return jobs;
+    }
 
+    public void setJobs(JobsDto jobs) {
+        this.jobs = jobs;
+    }
     public int getEmployee_id() {
         return employee_id;
     }

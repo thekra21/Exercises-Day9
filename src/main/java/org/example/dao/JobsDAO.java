@@ -14,7 +14,7 @@ public class JobsDAO {
     private static final String SELECT_MIN_SALARY_JOBS = "select * from jobs where min_salary = ?";
     private static final String SELECT_MIN_SALARY_SORT_BY_JOBS = "select * from jobs order by limit =? ,offset = ? where min_salary = ?";
     private static final String INSERT_JOBS = "insert into jobs values (?, ?, ?, ?)";
-    private static final String UPDATE_JOBS = "update departments set job_titel = ?, min Salary = ?,max Salary=? where job_id = ?";
+    private static final String UPDATE_JOBS = "update jobs set  job_title = ?, min salary = ?,max salary=? where job_id = ?";
     private static final String DELETE_JOBS = "delete from jobs where job_id = ?";
 
 
@@ -51,15 +51,16 @@ public class JobsDAO {
         st.executeUpdate();
     }
 
-    public Jobs selectJobs(int job_id) throws SQLException, ClassNotFoundException {
+    public static Jobs selectJobs(int job_id) throws SQLException, ClassNotFoundException {
         Class.forName("org.sqlite.JDBC");
         Connection conn = DriverManager.getConnection(URL);
         PreparedStatement st = conn.prepareStatement(SELECT_ONE_JOBS);
         st.setInt(1, job_id);
         ResultSet rs = st.executeQuery();
-        if (rs.next()) {
+        if(rs.next()) {
             return new Jobs(rs);
-        } else {
+        }
+        else {
             return null;
         }
     }

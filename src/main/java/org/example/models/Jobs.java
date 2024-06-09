@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Jobs {
- private String Jobs_Title;
+ private String job_title;
  private int Job_id;
  private double min_sal;
  private double max_sal;
@@ -14,24 +14,26 @@ public class Jobs {
 
 
 
-    public Jobs(String jobs_Title, int job_id, double min_sal, double max_sal) {
-        Jobs_Title = jobs_Title;
+    public Jobs(String job_title, int job_id, double min_sal, double max_sal) {
+        job_title = job_title;
         Job_id = job_id;
         this.min_sal = min_sal;
         this.max_sal = max_sal;
     }
     public Jobs(ResultSet rs) throws SQLException {
-        Jobs_Title = rs.getString("Job_Title");
-        Job_id = rs.getInt("Job_id");
+
+        Job_id = rs.getInt("job_id");
+        job_title = rs.getString("job_title");
         min_sal = rs.getDouble("min_salary");
         max_sal = rs.getDouble("max_salary");
 
     }
 
+
     @Override
     public String toString() {
         return "Jobs{" +
-                "Jobs_Title='" + Jobs_Title + '\'' +
+                "Jobs_Title='" + job_title + '\'' +
                 ", Job_id=" + Job_id +
                 ", min_sal=" + min_sal +
                 ", max_sal=" + max_sal +
@@ -39,11 +41,11 @@ public class Jobs {
     }
 
     public String getJobs_Title() {
-        return Jobs_Title;
+        return job_title;
     }
 
     public void setJobs_Title(String jobs_Title) {
-        Jobs_Title = jobs_Title;
+        job_title = job_title;
     }
 
     public double getMin_sal() {
