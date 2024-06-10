@@ -11,6 +11,7 @@ public class EmploysDAO {
 
     private static final String URL ="jdbc:sqlite:C:\\Users\\dev\\IdeaProjects\\myproject\\src\\main\\java\\hr.db";
     private static final String SELECT_ALL_EMPLOYS = "select * from employees";
+    private static final String SELECT_ONE_EMPLOYEES_JOIN_JOBS = "select * from employees join jobs on employees.job_id = jobs.job_id where employee_id = ?";
     private static final String SELECT_ONE_EMPLOYS = "select * from employees where employee_id = ?";
     private static final String SELECT_BY_HIRE_DATE = "select * from employees where hire_date=?";
     private static final String SELECT_BY_JOB_ID = "select * from employees where job_id=?";
@@ -63,7 +64,8 @@ public class EmploysDAO {
     public Employs selectEmployees(int emplyee_id) throws SQLException, ClassNotFoundException {
         Class.forName("org.sqlite.JDBC");
         Connection conn = DriverManager.getConnection(URL);
-        PreparedStatement st = conn.prepareStatement(SELECT_ONE_EMPLOYS);
+//        PreparedStatement st = conn.prepareStatement(SELECT_ONE_EMPLOYS);
+        PreparedStatement st =conn.prepareStatement(SELECT_ONE_EMPLOYEES_JOIN_JOBS);
         st.setInt(1, emplyee_id);
         ResultSet rs = st.executeQuery();
         return rs.next() ? new Employs(rs) : null;

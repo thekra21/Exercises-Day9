@@ -6,7 +6,7 @@ import org.example.models.Jobs;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-@Mapper
+@Mapper(uses = {JobsMapper.class})
 public interface EmployeesMapper {
 
     EmployeesMapper INSTANCE = Mappers.getMapper(EmployeesMapper.class);

@@ -15,8 +15,8 @@ public class Jobs {
 
 
     public Jobs(String job_title, int job_id, double min_sal, double max_sal) {
-        job_title = job_title;
-        Job_id = job_id;
+        this.job_title = job_title;
+        this.Job_id = job_id;
         this.min_sal = min_sal;
         this.max_sal = max_sal;
     }

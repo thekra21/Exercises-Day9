@@ -71,6 +71,7 @@ public class EmployeesDto {
                 ", salary=" + salary +
                 ", manager_id=" + manager_id +
                 ", department_id=" + department_id +
+                ", job=" + jobs +
                 '}';
     }
     @XmlElementWrapper

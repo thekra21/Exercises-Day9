@@ -49,7 +49,7 @@ private Jobs jobs;
         department_id = rs.getInt("department_id");
 
         ResultSetMetaData mt = rs.getMetaData();
-        if (mt.getColumnCount() > 3) {
+        if (mt.getColumnCount() > 10) {
             jobs = new Jobs(rs);
 
         }
@@ -68,7 +68,16 @@ private Jobs jobs;
                 ", salary=" + salary +
                 ", manager_id=" + manager_id +
                 ", department_id=" + department_id +
+                ", job=" + jobs +
                 '}';
+    }
+
+    public Jobs getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(Jobs jobs) {
+        this.jobs = jobs;
     }
 
     public int getEmployee_id() {

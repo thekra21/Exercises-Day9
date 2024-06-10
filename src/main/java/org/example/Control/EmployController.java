@@ -65,7 +65,9 @@ public class EmployController {
             }
             Jobs j = JobsDAO.selectJobs(emp.getJob_id());
 
-            EmployeesDto dto =  EmployeesMapper.INSTANCE.toEmployeesDto(emp,j);
+            System.out.println(emp);
+            EmployeesDto dto =  EmployeesMapper.INSTANCE.toEmployeesDto(emp);
+            System.out.println(dto);
             AddLink(dto);
 
             return Response.ok(dto).build();
